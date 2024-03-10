@@ -130,10 +130,12 @@ if ($numrows > 0) {
                 echo '<form method="post">';
            
                 echo '<input class="delete_memo" type="button" data-id="' . $memo_id . '" value="DELETE" />';
-                
+                $data=$memo_id;
+
+          $encrypted_memo_id = base64_encode((($data*123456*9876)/9876));
 
                 echo '</form>';
-                echo '<a class="edit_memo" href="update_memo.php?memo_id=' . $memo_id . '">EDIT</a>';
+                echo '<a class="edit_memo" href="update_memo.php?memo_id=' . urlencode($encrypted_memo_id) . '">EDIT</a>';
                 echo '</div>';
                 echo '</div>';
               }

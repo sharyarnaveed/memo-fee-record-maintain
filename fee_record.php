@@ -125,10 +125,10 @@ $feess=array();
                 echo '<form method="post">';
            
                 echo '<input class="delete_fee" type="button" data-id="' . $fee['fee_id']  . '" value="DELETE" />';
-                
-
+                $data=$fee['fee_id'];
+                $encrypted_fee_id = base64_encode((($data*123456*9876)/9876));
                 echo '</form>';
-                echo '<a class="edit_memo" target="_blank" href="download_record.php?fee_id=' . $fee['fee_id'] . '">Download</a>';
+                echo '<a class="edit_memo" target="_blank" href="download_record.php?fee_id=' . urlencode($encrypted_fee_id) . '">Download</a>';
                 echo '</div>';
                 // Add an edit link that leads to an edit page
          

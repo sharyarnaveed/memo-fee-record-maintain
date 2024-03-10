@@ -10,9 +10,13 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"]!=true)
 include "partials/_dbconn.php"; 
 
 if (isset($_GET['fee_id']) && !empty($_GET['fee_id'])) {
-    $fee_id = $_GET['fee_id'];
+    $encrypted_fee_id= $_GET['fee_id'];
 
+   
 
+    $decrypted_fee_id_p = base64_decode(urldecode($encrypted_fee_id));
+    $decrypted_fee_id1= (($decrypted_fee_id_p*9876)/123456/9876) ;
+            $fee_id=$decrypted_fee_id1;
 
 
 $recieve_data = "SELECT *  FROM `fee_record` WHERE `fee_id`='$fee_id' ";

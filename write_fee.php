@@ -15,11 +15,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     $target_dir = "uploads/";
 
-    $target_file = $target_dir . rand(1, 800000000) . basename($_FILES["image_1"]["name"]);
+    $target_file = $target_dir . rand(1, 800000) . basename($_FILES["image_1"]["name"]);
     $imagefiletype = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
     $check = getimagesize($_FILES["image_1"]["tmp_name"]);
 
-    $target_file_2 = $target_dir . rand(1, 80000000) . basename($_FILES["image_2"]["name"]);
+    $target_file_2 = $target_dir . rand(1, 80000) . basename($_FILES["image_2"]["name"]);
     $imagefiletype_2 = strtolower(pathinfo($target_file_2, PATHINFO_EXTENSION));
     $check2 = getimagesize($_FILES["image_2"]["tmp_name"]);
 
@@ -47,7 +47,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                
             }
 
-            if ($_FILES["image_1"]["size"] > 100000000 || $_FILES["image_2"]["size"] > 100000000) {
+            if ($_FILES["image_1"]["size"] > 3000000 || $_FILES["image_2"]["size"] > 3000000 ) {
                
             }
 

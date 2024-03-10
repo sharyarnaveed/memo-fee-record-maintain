@@ -15,8 +15,12 @@ $empty_memo = false;
 
 // Check if ID is provided in the URL
 if (isset($_GET['memo_id']) && !empty($_GET['memo_id'])) {
-    $memo_id = $_GET['memo_id'];
+    $encrypted_memo_id = $_GET['memo_id'];
 
+
+    $decrypted_memo_id_p = base64_decode(urldecode($encrypted_memo_id));
+    $decrypted_memo_id1= (($decrypted_memo_id_p*9876)/123456/9876) ;
+            $memo_id=$decrypted_memo_id1;
     // Fetch memo data based on ID
     $fetch_memo_query = "SELECT * FROM `memo` WHERE `memo_id`='$memo_id'";
     $fetch_result = mysqli_query($conn, $fetch_memo_query);

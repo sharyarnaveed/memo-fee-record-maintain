@@ -18,6 +18,9 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] != true) {
   $memos = array();
   $fee_array = array();
 
+
+
+
   if (mysqli_num_rows($result) > 0) {
     while ($row = $result->fetch_assoc()) {
       $memo_id = $row["memo_id"];
@@ -87,7 +90,17 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] != true) {
               <h2>Memo</h2>
               <?php
               foreach ($memos as $memo_id => $memo) {
-                echo '<a href="update_memo.php?memo_id=' . $memo_id . '" class="the_content">';
+
+
+
+                $data=$memo_id ;
+
+                $encrypted_memo_id = base64_encode((($data*123456*9876)/9876));
+
+
+
+
+                echo '<a href="update_memo.php?memo_id=' .urlencode($encrypted_memo_id)  . '" class="the_content">';
                 echo '<h3>Title: ' . $memo['memo_title'] . '</h3>';
                 echo '</a>';
               }
@@ -97,7 +110,17 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] != true) {
               <h2>Fee</h2>
               <?php
               foreach ($fee_array as $fee_id_data => $fee) {
-                echo '<a target="_blank" href="Download_record.php?fee_id=' . $fee_id_data . '" class="the_content">'; //Changed memo_id to fee_id
+
+
+                $data=$fee_id_data ;
+
+                $encrypted_fee_id = base64_encode((($data*123456*9876)/9876));
+
+
+
+
+
+                echo '<a target="_blank" href="Download_record.php?fee_id=' . urlencode($encrypted_fee_id) . '" class="the_content">'; //Changed memo_id to fee_id
                 echo '<h3>Title: ' . $fee['fee_title'] . '</h3>';
                 echo '</a>';
               }

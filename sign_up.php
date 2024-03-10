@@ -294,6 +294,9 @@ echo '
               placeholder="Repeat Password"
             />
 <input type="file" name="profile_img" id="profile_img">
+
+<h5 style=" font-family: 'Roboto', sans-serif;font-size: 18px; margin: 18px 5px; " >Already have a Account <a style="color: #0e46fce5;" href="sign_in.php">Sign In</a></h5>
+
             <div class="sign_up_button">
               <input
                 type="submit"
