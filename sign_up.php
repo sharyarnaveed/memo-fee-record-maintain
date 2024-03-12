@@ -284,13 +284,16 @@ echo '
               type="password"
               name="password"
               placeholder="Password"
-            
+            minlength="8"
+            maxlength="15"
             />
 
             <input
               class="sign_up_input"
               type="password"
               name="rpassword"
+              minlength="8"
+            maxlength="15"
               placeholder="Repeat Password"
             />
 <input type="file" name="profile_img" id="profile_img">
