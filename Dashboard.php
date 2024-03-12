@@ -93,14 +93,14 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] != true) {
 
 
 
-                $data=$memo_id ;
+                $data = $memo_id;
 
-                $encrypted_memo_id = base64_encode((($data*123456*9876)/9876));
-
-
+                $encrypted_memo_id = base64_encode((($data * 123456 * 9876) / 9876));
 
 
-                echo '<a href="update_memo.php?memo_id=' .urlencode($encrypted_memo_id)  . '" class="the_content">';
+
+
+                echo '<a href="update_memo.php?memo_id=' . urlencode($encrypted_memo_id)  . '" class="the_content">';
                 echo '<h3>Title: ' . $memo['memo_title'] . '</h3>';
                 echo '</a>';
               }
@@ -112,9 +112,9 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] != true) {
               foreach ($fee_array as $fee_id_data => $fee) {
 
 
-                $data=$fee_id_data ;
+                $data = $fee_id_data;
 
-                $encrypted_fee_id = base64_encode((($data*123456*9876)/9876));
+                $encrypted_fee_id = base64_encode((($data * 123456 * 9876) / 9876));
 
 
 

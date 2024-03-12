@@ -1,14 +1,12 @@
 <?php
 session_start();
 
-if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"]!=true)
-
-{
-  header("location:sign_in.php");
-  exit;
+if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] != true) {
+    header("location:sign_in.php");
+    exit;
 }
 
-include "partials/_dbconn.php"; 
+include "partials/_dbconn.php";
 
 $alert_saved = false;
 $empty_memo = false;
@@ -19,8 +17,8 @@ if (isset($_GET['memo_id']) && !empty($_GET['memo_id'])) {
 
 
     $decrypted_memo_id_p = base64_decode(urldecode($encrypted_memo_id));
-    $decrypted_memo_id1= (($decrypted_memo_id_p*9876)/123456/9876) ;
-            $memo_id=$decrypted_memo_id1;
+    $decrypted_memo_id1 = (($decrypted_memo_id_p * 9876) / 123456 / 9876);
+    $memo_id = $decrypted_memo_id1;
     // Fetch memo data based on ID
     $fetch_memo_query = "SELECT * FROM `memo` WHERE `memo_id`='$memo_id'";
     $fetch_result = mysqli_query($conn, $fetch_memo_query);
@@ -61,20 +59,20 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $row = $check->fetch_assoc();
             $user_id = $row["id"];
 
-          
-                // Update existing memo
-                $update_data = "UPDATE `memo` SET `memo`='$memo_text', `memo_title`='$memo_title' WHERE `memo_id`='$memo_id' AND `user_id`='$user_id'";
-                $result = mysqli_query($conn, $update_data);
 
-                if ($result) {
-                    $alert_saved = true;
-                } else {
-                    echo "Error updating memo: " . mysqli_error($conn);
-                    exit();
-                }
-            
+            // Update existing memo
+            $update_data = "UPDATE `memo` SET `memo`='$memo_text', `memo_title`='$memo_title' WHERE `memo_id`='$memo_id' AND `user_id`='$user_id'";
+            $result = mysqli_query($conn, $update_data);
 
-           
+            if ($result) {
+                $alert_saved = true;
+            } else {
+                echo "Error updating memo: " . mysqli_error($conn);
+                exit();
+            }
+
+
+
 
             if ($result) {
                 $alert_saved = true;
@@ -92,10 +90,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 <!DOCTYPE html>
 <html lang="en">
-    <link rel="stylesheet" href="css/index.css">
+<link rel="stylesheet" href="css/index.css">
+
 <head>
     <!-- Add your head content here -->
 </head>
+
 <body>
 
     <?php
@@ -115,7 +115,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <div class="memo_write">
             <input type="text" name="memo_title" placeholder="Title" id="title" value="<?php echo htmlspecialchars($memo_title); ?>">
             <textarea name="memo_text" placeholder="Write a memo" id="memo_write" cols="100" rows="30"><?php echo htmlspecialchars($memo_text); ?></textarea>
-        </div>  
+        </div>
 
         <div class="memo_buttons">
             <div id="go_back_memo" onclick="previous()">Back</div>
@@ -138,4 +138,5 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         });
     </script>
 </body>
+
 </html>

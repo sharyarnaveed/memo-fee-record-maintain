@@ -115,7 +115,7 @@ if ($numrows > 0) {
             <div class="content_section">
 
 
-   
+
 
 
               <?php
@@ -128,11 +128,11 @@ if ($numrows > 0) {
                 echo '<h3>Title: ' . $memo['memo_title'] . '</h3>';
                 echo '<div style="width:20%;  display:flex; height:100%; justify-content:space-between; ">';
                 echo '<form method="post">';
-           
-                echo '<input class="delete_memo" type="button" data-id="' . $memo_id . '" value="DELETE" />';
-                $data=$memo_id;
 
-          $encrypted_memo_id = base64_encode((($data*123456*9876)/9876));
+                echo '<input class="delete_memo" type="button" data-id="' . $memo_id . '" value="DELETE" />';
+                $data = $memo_id;
+
+                $encrypted_memo_id = base64_encode((($data * 123456 * 9876) / 9876));
 
                 echo '</form>';
                 echo '<a class="edit_memo" href="update_memo.php?memo_id=' . urlencode($encrypted_memo_id) . '">EDIT</a>';
@@ -140,7 +140,7 @@ if ($numrows > 0) {
                 echo '</div>';
               }
 
-            
+
 
               ?>
 
@@ -160,33 +160,33 @@ if ($numrows > 0) {
 <script>
   $(document).ready(function() {
     $(document).on("click", ".delete_memo", function() {
-let confiramtion=confirm('Are you sure to delete this item ?');
+      let confiramtion = confirm('Are you sure to delete this item ?');
 
-if (confiramtion){
+      if (confiramtion) {
 
 
 
-      var memoId = $(this).data("id");
-      var $memoContainer = $(this).closest(".memo_container");
+        var memoId = $(this).data("id");
+        var $memoContainer = $(this).closest(".memo_container");
 
-      $.ajax({
-        url: "delete_memo.php",
-        type: "POST",
-        data: { memo_id: memoId },
-        success: function(data) {
-          if (data === "true") {
-            $memoContainer.remove();
-          } else {
-            console.log("Error deleting memo");
-          }
-        },
-      
-      });
-    }
-else
-{
-  console.log("ok");
-}
+        $.ajax({
+          url: "delete_memo.php",
+          type: "POST",
+          data: {
+            memo_id: memoId
+          },
+          success: function(data) {
+            if (data === "true") {
+              $memoContainer.remove();
+            } else {
+              console.log("Error deleting memo");
+            }
+          },
+
+        });
+      } else {
+        console.log("ok");
+      }
 
     });
   });

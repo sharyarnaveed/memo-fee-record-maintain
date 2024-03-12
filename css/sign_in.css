@@ -252,6 +252,28 @@
   border-color: #0e45fc5b;
   border-radius: 5px;
 }
+
+
+
+
+.forgot_button
+{
+    height: 30px;
+    background-color: transparent;
+    border: none;
+    outline: none;
+    font-size: 16px;
+    cursor: pointer;
+    color: #0e46fcc2;
+}
+.forgot_button:hover
+{
+  text-decoration: underline;
+}
+
+
+
+
 #profile_img
 {
 margin: 10px 10px;
