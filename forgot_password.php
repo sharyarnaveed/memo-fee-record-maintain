@@ -22,13 +22,13 @@ try {
     $mail->isSMTP();                                            //Send using SMTP
     $mail->Host       = 'smtp.gmail.com';                     //Set the SMTP server to send through
     $mail->SMTPAuth   = true;                                   //Enable SMTP authentication
-    $mail->Username   = 'sharyarmalik943751@gmail.com';                     //SMTP username
-    $mail->Password   = 'malik943751';                               //SMTP password
+    $mail->Username   = '';                     //SMTP username
+    $mail->Password   = '';                               //SMTP password
     $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;            //Enable implicit TLS encryption
     $mail->Port       = 465;                                    //TCP port to connect to; use 587 if you have set `SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS`
 
     //Recipients
-    $mail->setFrom('sharyarmalik943751@gmail.com', 'Management');
+    $mail->setFrom('', 'Management');
     $mail->addAddress($remail);     //Add a recipient
   
 
@@ -37,13 +37,14 @@ try {
     //Content
     $mail->isHTML(true);                                  //Set email format to HTML
     $mail->Subject = 'Password Reset Link';
-    $mail->Body    = 'Reset Your Password <br>
-    Click The Link  <a href="#">Reset Password</a>';
-    $mail->AltBody = 'This is the body in plain text for non-HTML mail clients';
+    $mail->Body    = "Reset Your Password <br>
+    Click The Link  <a href='http://localhost/incomplete%20projects/DsaProjectphp/updatepassword.php?email=$email' & reset_token=$rtoken>Reset Password</a>";
+
 
     $mail->send();
-    echo 'Message has been sent';
-} catch (Exception $e) {
+    echo true;
+} 
+catch (Exception $e) {
     echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
 }
 
