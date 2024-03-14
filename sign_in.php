@@ -47,7 +47,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") //send the request by post method
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="css/sign_in.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script> -->
     <title>Sign In</title>
 </head>
 <style>
@@ -102,17 +102,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") //send the request by post method
                     <input class="input_sign_in" type="text" placeholder="User Name" name="username">
                     <input class="input_sign_in" type="password" name="password" placeholder="Password" id="">
                     <div class="remeber_fogot">
-                        <div class="remember">
-
-                            <input class="input_sign_in" type="checkbox" name="signin" id="remember_me">
-                            <h1 class="remember_txt">Remember Me</h1>
-
-
-                        </div>
+                       
 
 
                         <div class="forgot">
-                            <input class="forgot_button" value="Forgot Password" type="button">
+                            <a class="forgot_button" href="forgot_password.php"> Forgot Password?</a>
                                 
                           
                         </div>
@@ -137,23 +131,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") //send the request by post method
     <script src="js/sign.js"></script>
 </body>
 
-<script>
-$(document).ready(function() {
-$(document).on("click",".forgot_button",function()
-{
-    $.ajax({
-        url:"forgot_password.php",
-        type:"POST",
-       success: function(data)
-       {
-        $(".signin_section").html(data);
-       }
-    })
-})
 
-})
-
-</script>
 
 
 
