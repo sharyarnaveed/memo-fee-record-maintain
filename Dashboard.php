@@ -9,10 +9,10 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] != true) {
 
   $user_id = $_SESSION['id'];
 
-  $receive_dashboard = "SELECT * FROM `memo` WHERE user_id='$user_id' "; //Added space before WHERE
+  $receive_dashboard = "SELECT * FROM `memo` WHERE user_id='$user_id' ORDER BY 'time' DESC LIMIT 5"; //Added space before WHERE
   $result = mysqli_query($conn, $receive_dashboard);
-echo $_SESSION['id'];
-  $receive_fee = "SELECT fee_id, fee_title FROM `fee_record` WHERE user_id='$user_id' "; //Added space before WHERE
+
+  $receive_fee = "SELECT fee_id, fee_title FROM `fee_record` WHERE user_id='$user_id' ORDER BY server_save_time DESC LIMIT 5"; //Added space before WHERE
   $result2 = mysqli_query($conn, $receive_fee);
 
   $memos = array();
