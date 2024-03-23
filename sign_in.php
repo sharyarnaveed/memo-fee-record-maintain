@@ -8,25 +8,39 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") //send the request by post method
     $username = $_POST["username"];
     $password = md5($_POST["password"]);
 
-    $sql = "SELECT * FROM `users` WHERE  `username`='$username'AND `password`='$password'";
+    $sql = "SELECT * FROM `users` WHERE  `username`=?";
+$stmt=$conn->prepare( $sql );
+$stmt->bind_param('s',$username);
+$stmt->execute();
+$result=$stmt->get_result();
 
-    $result = mysqli_query($conn, $sql);
-    $num = mysqli_num_rows($result);
+
+$num=mysqli_num_rows($result);
 
     if ($num == 1) {
-        $login = true;
-        session_start();
-        $_SESSION['loggedin'] = true;
-        $_SESSION['username'] = $username;
-        $row = $result->fetch_assoc();
-        $user_id = $row["id"];
-
-        $_SESSION['id'] = $user_id;
-
-        // $_SESSION['id']=$num["id"];
-        header("location:Dashboard.php");
+        while ($row=$result->fetch_assoc()) {
+            $user_id = $row["id"];
+            if ($password==$row["password"]) {
+                $login = true;
+                session_start();
+                $_SESSION['loggedin'] = true;
+                $_SESSION['username'] = $username;
+                $row = $result->fetch_assoc();
+            
+        
+                $_SESSION['id'] = $user_id;
+        
+               
+                header("location:Dashboard.php");
+            }
+            else
+            {
+                $showerror = true;
+            }
+        }
+      
     } else {
-        $showerror = true;
+        
     }
 } ?>
 

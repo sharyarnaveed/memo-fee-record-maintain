@@ -9,20 +9,17 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] != true) {
 
   $user_id = $_SESSION['id'];
 
-  $receive_dashboard = "SELECT memo_id, memo, memo_title FROM `memo` WHERE user_id='$user_id' ORDER BY time DESC LIMIT 5"; //Added space before WHERE
+  $receive_dashboard = "SELECT * FROM `memo` WHERE user_id='$user_id' "; //Added space before WHERE
   $result = mysqli_query($conn, $receive_dashboard);
-
-  $receive_fee = "SELECT fee_id, fee_title FROM `fee_record` WHERE user_id='$user_id' ORDER BY server_save_time DESC LIMIT 5"; //Added space before WHERE
+echo $_SESSION['id'];
+  $receive_fee = "SELECT fee_id, fee_title FROM `fee_record` WHERE user_id='$user_id' "; //Added space before WHERE
   $result2 = mysqli_query($conn, $receive_fee);
 
   $memos = array();
   $fee_array = array();
 
-
-
-
   if (mysqli_num_rows($result) > 0) {
-    while ($row = $result->fetch_assoc()) {
+    while ($row = mysqli_fetch_assoc($result)) { // Changed $result->fetch_assoc() to mysqli_fetch_assoc($result)
       $memo_id = $row["memo_id"];
       $memos[$memo_id] = array(
         'memo' => $row["memo"],
@@ -33,7 +30,7 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] != true) {
   }
 
   if (mysqli_num_rows($result2) > 0) {
-    while ($row2 = $result2->fetch_assoc()) {
+    while ($row2 = mysqli_fetch_assoc($result2)) { // Changed $result2->fetch_assoc() to mysqli_fetch_assoc($result2)
       $fee_id_data = $row2["fee_id"]; //Changed $row to $row2
       $fee_array[$fee_id_data] = array(
         'fee_title' => $row2["fee_title"], //Changed $row to $row2
@@ -42,12 +39,10 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] != true) {
     }
   }
 }
-
 ?>
 
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -65,7 +60,6 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] != true) {
     }
   </style>
 </head>
-
 <body>
   <section class="whole_content">
     <main>
@@ -90,16 +84,8 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] != true) {
               <h2>Memo</h2>
               <?php
               foreach ($memos as $memo_id => $memo) {
-
-
-
-                $data = $memo_id;
-
-                $encrypted_memo_id = base64_encode((($data * 123456 * 9876) / 9876));
-
-
-
-
+                $data1 = $memo_id;
+                $encrypted_memo_id = base64_encode((($data1 * 123456 * 9876) / 9876));
                 echo '<a href="update_memo.php?memo_id=' . urlencode($encrypted_memo_id)  . '" class="the_content">';
                 echo '<h3>Title: ' . $memo['memo_title'] . '</h3>';
                 echo '</a>';
@@ -110,17 +96,9 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] != true) {
               <h2>Fee</h2>
               <?php
               foreach ($fee_array as $fee_id_data => $fee) {
-
-
                 $data = $fee_id_data;
-
                 $encrypted_fee_id = base64_encode((($data * 123456 * 9876) / 9876));
-
-
-
-
-
-                echo '<a target="_blank" href="Download_record.php?fee_id=' . urlencode($encrypted_fee_id) . '" class="the_content">'; //Changed memo_id to fee_id
+                echo '<a target="_blank" href="Download_record.php?fee_id=' . urlencode($encrypted_fee_id) . '" class="the_content">';
                 echo '<h3>Title: ' . $fee['fee_title'] . '</h3>';
                 echo '</a>';
               }
@@ -132,5 +110,4 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] != true) {
     </main>
   </section>
 </body>
-
 </html>

@@ -64,7 +64,7 @@ if(!empty($email_reset))
 if($num>0)
 {
   $reset_token=bin2hex(random_bytes(16));
-  date_default_timezone_set('Asia/Islamabad');
+  date_default_timezone_set('Asia/Karachi');
   $date=date("Y-m-d");
   $query="UPDATE `users` SET `resettoken`='$reset_token',`tokenexpire`='$date' WHERE `email`=$email_reset";
 
