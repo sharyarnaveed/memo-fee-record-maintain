@@ -28,7 +28,7 @@ try {
     $mail->Port       = 465;                                    //TCP port to connect to; use 587 if you have set `SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS`
 
     //Recipients
-    $mail->setFrom('', 'Management');
+    $mail->setFrom('sharyarmalik943751@gmail.com', 'Management');
     $mail->addAddress($remail);     //Add a recipient
   
 
@@ -52,37 +52,29 @@ catch (Exception $e) {
 }
 
 
-    $email_reset=$_POST["email_reset"];
+$email_reset = $_POST["email_reset"];
 
-if(!empty($email_reset))
-{ 
+if (!empty($email_reset)) {
     include "partials/_dbconn.php";
-    $reset_query="SELECT * FROM `users` WHERE  `email`='$email_reset' ";
+    $reset_query = "SELECT * FROM `users` WHERE  `email`='$email_reset' ";
 
-    $result=mysqli_query($conn,$reset_query);
-    $num=mysqli_num_rows($result);
-if($num>0)
-{
-  $reset_token=bin2hex(random_bytes(16));
-  date_default_timezone_set('Asia/Karachi');
-  $date=date("Y-m-d");
-  $query="UPDATE `users` SET `resettoken`='$reset_token',`tokenexpire`='$date' WHERE `email`=$email_reset";
+    $result = mysqli_query($conn, $reset_query);
+    $num = mysqli_num_rows($result);
+    if ($num > 0) {
+        $reset_token = bin2hex(random_bytes(16));
+        date_default_timezone_set('Asia/Karachi');
+        $date = date("Y-m-d");
+        $query = "UPDATE `users` SET `resettoken`='$reset_token',`tokenexpire`='$date' WHERE `email`='$email_reset'";
 
-  $query_result=mysqli_query($conn,$query);
+        $query_result = mysqli_query($conn, $query);
 
-  if($query_result && sendmail($email_reset,$reset_token))
-  {
-    $mail_send=true;
-  }
+        if ($query_result && sendmail($email_reset, $reset_token)) {
+            $mail_send = true;
+        }
+    } else {
+        $notfound = true;
+    }
 }
-else
-{
-    $notfound=true;
-
-}
-
-}
-
 }
 ?>
 
